@@ -1,0 +1,36 @@
+@main("Главная страница") {
+
+  @topbar()
+  <div class="container">
+    <div class="hero-unit clearfix">
+      <div class="pull-left">
+        @*
+        <form class="well" action="@routes.Application.registry()"> <!-- форму влево: best practices -->
+          <label>Имя пользователя</label>
+            <input type="text" class="span3" placeholder="">
+          <label>Пароль</label>
+            <input type="password" class="span3" placeholder="">
+          <label class="checkbox">
+            <input type="checkbox">Запомнить меня
+          </label>
+          <button type="submit" class="btn">Войти</button>
+        </form>*@
+        @*TODO: uncomment auth snippet*@
+        @login(Application.logoForm)
+      </div>
+      <div class="pull-right span7">
+        <h2>Добро пожаловать<br>в медицинскую информацонную систему НГУ</h2>
+        <p class="pull-right">Здесь располагается ваша строчка приветствия</p> <!-- здесь ваша строчка приветствия -->       
+        <!-- <p>
+          <a class="btn btn-primary btn-large" href="@routes.Application.todoPage">Помощь</a>
+        </p> -->      
+      </div>     
+      <div class="pull-right span7">  
+        <p class="pull-right">
+          <a class="btn btn-primary btn-large" href="@routes.Application.todoPage">Помощь</a>
+        </p>      
+      </div>  
+    </div>
+  </div>
+  @footer()
+}

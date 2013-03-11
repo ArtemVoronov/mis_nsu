@@ -1,0 +1,37 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>@title</title>
+    @links()
+    @scripts()
+  </head>
+<body>
+  <!-- <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid"> -->
+        <!-- <a class="brand" href="@routes.CalendarController.calendar()">FullCalendar</a> -->
+
+        <!-- <ul class="nav">
+          <li><a href="#homepage">Главная страница</a></li>
+          <li><a href="@routes.Application.registry()">Регистратура</a></li>
+          <li class="active">
+            <a href="@routes.CalendarController.calendar()">Календарь</a>
+          </li>
+          <li>
+            <a href="@routes.CalendarController.list()">
+              <i class="icon-list icon-white"></i> Записаные пациенты
+            </a>
+          </li>            
+        </ul>
+      </div>
+    </div>
+  </div> -->
+
+
+  <div class="container-fluid">
+    @content
+  </div>
+</body>
+</html>

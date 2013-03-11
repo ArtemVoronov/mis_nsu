@@ -1,0 +1,14 @@
+@(patient: Patient)
+<div> 
+  <input type="hidden" value="@patient.id" id='patientId'>
+  <h3>Пациент</h3> 
+	<p>@patient.getFullName()</p>
+	<p>
+		<strong>Дата рождения: </strong> 
+		@patient.birthday.format("dd MMM yyyy")
+	</p>
+	<address>
+		<strong>Адрес:</strong> 
+		@patient.residenceAddress
+	</address>
+</div>

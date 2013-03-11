@@ -1,0 +1,5 @@
+@(doctorFIOMap: Map[String, String])
+
+@for((key, value) <- doctorFIOMap) {
+  <option value="@key">@value</option>
+} 

@@ -1,0 +1,203 @@
+
+# Users
+
+users:
+
+    - !!models.User
+        email:      registry@nsu.ru
+        name:       Артём Воронов
+        password:   123
+    
+    - !!models.User
+        email:      doctor@nsu.ru
+        name:       Doctor's name
+        password:   secret
+    
+
+# Gender
+
+genders:
+
+    - &gender1 !!models.Gender
+        id:              2
+        genderCode:      0
+    
+    - &gender2 !!models.Gender
+        id:              1
+        genderCode:      1
+    
+    - &gender3 !!models.Gender
+        id:              3
+        genderCode:      2
+    
+    - &gender4 !!models.Gender
+        id:              4
+        genderCode:      9
+    
+
+# IdentityDocTypes
+
+identityDocTypes:
+
+    - &identityDocType1 !!models.IdentityDocType
+        identityDocTypeName:     Паспорт граждинина РФ
+    
+    - &identityDocType2 !!models.IdentityDocType
+        identityDocTypeName:     Паспорт инностранного граждинина
+    
+
+# IdentityDocы
+
+identityDocs:
+
+    - &identityDoc1 !!models.IdentityDoc
+        identityDocType:        *identityDocType1
+        number:                 1112
+        series:                 112233
+        dateIssue:              2003-02-04 0:00:00.00
+        whoIssue:               "отделом УФМС Заельцовского района Новосибирской области"
+    
+    - &identityDoc2 !!models.IdentityDoc
+        identityDocType:        *identityDocType1
+        number:                 3211
+        series:                 322323
+        dateIssue:              2001-02-04 0:00:00.00
+        whoIssue:               "отделом УФМС Заельцовского района Новосибирской области"
+    
+    - &identityDoc3 !!models.IdentityDoc
+        identityDocType:        *identityDocType2
+        number:                 6666
+        series:                 666666
+        dateIssue:              2005-02-04 0:00:00.00
+        whoIssue:               "отделом УФМС Заельцовского района Новосибирской области"
+
+# Patients
+
+patients:
+    - &patient1 !!models.Patient
+        name:               Иван
+        surname:            Иванов
+        patronymic:         Иванович
+        gender:             *gender2
+        birthday:           1978-01-19
+        residenceAddress:   "630124, Россия, Новосибирская область, г. Новосибирск, ул. Пирогова 2, 121"
+        currentAddress:     "630124, Россия, Новосибирская область, г. Новосибирск, ул. Пирогова 2, 121"
+        identityDoc:        *identityDoc1
+    
+    - &patient2 !!models.Patient
+        name:               Петр
+        surname:            Иванов
+        patronymic:         Семёнович
+        gender:             *gender2
+        birthday:           1966-11-29
+        residenceAddress:   "630124, Россия, Новосибирская область, г. Новосибирск, ул. Пирогова 3, 124"
+        currentAddress:     "630124, Россия, Новосибирская область, г. Новосибирск, ул. Пирогова 3, 124"
+        identityDoc:        *identityDoc2
+    
+    - &patient3 !!models.Patient
+        name:               Иван
+        surname:            Петрович
+        patronymic:         Альбертович
+        gender:             *gender2
+        birthday:           1996-12-12
+        residenceAddress:   "630124, Россия, Новосибирская область, г. Новосибирск, ул. Пирогова 4, 125"
+        currentAddress:     "630124, Россия, Новосибирская область, г. Новосибирск, ул. Пирогова 4, 125"
+        identityDoc:        *identityDoc3
+
+# DoctorTypes
+
+doctorTypes:
+
+    - &doctorType1 !!models.DoctorType
+        doctorTypeName:     Терапевт
+    
+    - &doctorType2 !!models.DoctorType
+        doctorTypeName:     Хирург
+    
+    - &doctorType3 !!models.DoctorType
+        doctorTypeName:     Стоматолог
+    
+    - &doctorType4 !!models.DoctorType
+        doctorTypeName:     Невропатолог
+    
+# Doctors
+
+doctors:
+
+    - &doctor1 !!models.Doctor
+        name:               Ольга
+        surname:            Кошкарина
+        patronymic:         Петровна
+        gender:             *gender3
+        birthday:           1976-06-14
+        doctorType:         *doctorType1
+        officeNumber:       12
+    
+    - &doctor2 !!models.Doctor
+        name:               Геннадий
+        surname:            Моргунов
+        patronymic:         Андреевич
+        gender:             *gender2
+        birthday:           1980-04-13
+        doctorType:         *doctorType1
+        officeNumber:       14
+    
+    - &doctor3 !!models.Doctor
+        name:               Борис
+        surname:            Лесоповалов
+        patronymic:         Анатольевич
+        gender:             *gender2
+        birthday:           1985-12-12
+        doctorType:         *doctorType2
+        officeNumber:       8
+    
+    - &doctor4 !!models.Doctor
+        name:               Пётр
+        surname:            Горбатенко
+        patronymic:         Евгеньевич
+        gender:             *gender2
+        birthday:           1966-05-05
+        doctorType:         *doctorType3
+        officeNumber:       44
+    
+    - &doctor5 !!models.Doctor
+        name:               Игнатенко
+        surname:            Семён
+        patronymic:         Семёнович
+        gender:             *gender2
+        birthday:           1965-07-15
+        doctorType:         *doctorType4
+        officeNumber:       19
+    
+
+# Events
+
+events:
+
+    - &event1 !!models.Event
+        title:               пациент №1
+        allDay:              false
+        start:               2013-02-04 3:00:00.00
+        end:                 2013-02-04 3:30:00.00   
+        endsSameDay:         true
+        doctor:              *doctor1   
+        patient:             *patient1
+    
+
+# Organizations
+
+organizations:
+
+    - &org1 !!models.Organization
+        name:               "ООО СМО СИМАЗ-МЕД"
+    
+    - &org2 !!models.Organization
+        name:               "ОAО РОСНО-МС"
+    
+    - &org3 !!models.Organization
+        name:               "СК Ингосстрах-М"
+    
+    - &org4 !!models.Organization
+        name:               "ООО МСК УралСиб"
+    
+

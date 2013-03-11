@@ -1,0 +1,43 @@
+@(event: Event)
+
+@import helper._
+@import registry.patient._
+@import registry.doctor._
+@import registry.calendar._
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel">Запись на приём №@event.id</h3>
+	</div>
+	<div id="eventModalBody" class="modal-body">
+		@eventinfo(event)
+		@doctorinfo(event.doctor)    
+		@patientinfo(event.patient)
+	</div>
+	<div class="modal-footer">
+		<!-- <a href="" class="btn btn-info pull-left">Талон</a> -->
+		<button id="printButton" class="btn btn-info pull-left">Талон</button>
+		<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Закрыть</button>
+		<!-- <button class="btn btn-primary">Закрыть</button> -->
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#printButton').click(function(event) { 
+        event.preventDefault();
+        printContent();
+      }); 
+	});	
+	function printContent() {
+    var DocumentContainer = document.getElementById('eventModalBody');
+    var WindowObject = window.open("", "PrintWindow",
+    "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+    WindowObject.document.writeln(DocumentContainer.innerHTML);
+    WindowObject.document.close();
+    WindowObject.focus();
+    WindowObject.print();
+    WindowObject.close();
+  }
+</script>

@@ -1,0 +1,41 @@
+@(events: List[Event])
+
+@mainLayout("Список событий") {
+  <div class="container">
+    <h2>Список событий</h2>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th style="min-width:10px; max-width:900px;width:auto; white-space:nowrap;">Пациент</th>
+          <th style="width:120px;">Начало</th>
+          <th style="width:120px;">Окончание</th>
+          <th style="width:120px;">Специальность врача</th>
+          <th style="width:14px;"><a href="@routes.CalendarController.blank()" title="Новое событие"><i class="icon-plus"></i></a></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(event <- events){
+        <tr>
+          <!-- @*<td><a href="@routes.CalendarController.edit(event.id)">@event.title</a></td>*@ -->
+           <td><a href="@routes.CalendarController.edit(event.id)">@event.patient.getFullName()</a></td>
+          @if(event.allDay && event.endsSameDay){
+          <td colspan="2">@if(event.start == null){ - } else {@event.start.format("dd.MM.yyyy") (All day)}</td>
+        } else {
+          @if(event.allDay){
+          <td colspan="2">@if(event.start == null){ - } else {@event.start.format("dd.MM.yyyy")} - @if(event.end == null){ - } else {@event.end.format("dd.MM.yyyy")} (All days)</td>
+          } else {
+          <td>@if(event.start == null){ - } else {@event.start.format("dd.MM.yyyy H:mm")}</td>
+          <td>@if(event.end == null){ - } else {@event.end.format("dd.MM.yyyy H:mm")}</td>
+          <td>@if(event.doctor == null){ - } else {@event.doctor.getDoctorTypeName()}</td>
+          }
+        }
+          <td><a href="@routes.CalendarController.delete(event.id)"><i class="icon-trash"></i></a> </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <div>
+      <input type="button" value="Закрыть" class="btn" onclick="window.close()">
+    <div>
+  </div>
+}

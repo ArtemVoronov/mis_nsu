@@ -1,0 +1,11 @@
+@(doctor: Doctor)
+
+<div>
+	<input type="hidden" value="@doctor.id" id='doctorId'>
+  <h3>Врач</h3> 
+	<p>@doctor.getFullName()</p>
+	<p>
+		<strong>Специальность:</strong> 
+		@doctor.getDoctorTypeName()
+	</p>  
+</div>

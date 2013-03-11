@@ -1,0 +1,36 @@
+@(username: String)
+
+@main("Контакты") {
+
+  <div class="navbar navbar-fixed-top"> <!--  navbar-fixed-top -->
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li><a href="@routes.Application.homepage">Главная страница</a></li>
+            <li class="active"><a href="@routes.Application.about">О проекте</a></li>
+            <li><a href="@routes.Application.contacts">Контакты</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="hero-unit clearfix container-fluid">
+      <div class="pull-left">   
+        <h2>О проекте</h2>    
+          <p class="lead">На базе Новосибирского государственного университета планируется организовать медицинский центр, который ...</p>
+          <p class="lead">описание проекта</p>
+          <p class="lead">ссылка на github, исходный код и прочее</p>
+      </div>
+    </div>
+  </div>
+
+  @footer()
+}

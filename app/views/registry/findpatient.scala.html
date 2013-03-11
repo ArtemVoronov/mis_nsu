@@ -1,0 +1,61 @@
+@(patientForm: Form[Patient])
+
+@import play.api.data.validation._
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="page-header span12">
+      <h4>Запись на приём</h4>
+    </div>
+  </div>
+  @helper.form(routes.PatientManager.findPatient(), 'id -> "searchForm") {
+    <div class="row-fluid">
+      <div class="input-append span9">
+        <input class="span9" type="text" name="fullName" placeholder="фамилия имя отчество" id="searchInput" data-provide="typeahead" data-items="4" autocomplete="off">
+        <button id='searchButton' type="submit" class="btn btn-info">
+          <i class="icon-search"></i>         
+        </button>
+        <button id='advancedSearchButton' type="button" class="btn">
+          <!-- <span class="add-on"><i class="icon-arrow-down"></i></span>  -->
+          <i class="icon-arrow-down"></i>
+          Расширенный поиск     
+        </button>
+      </div>
+    </div>
+    <div id='advancedSearchFields' class="row-fluid">
+      <div  class="row-fluid">
+        <div class="input-append date" data-date-format="dd.MM.yyyy" >
+          <label>Дата рождения</label>
+          <input class="span3" id="searchBirthday" name="searchBirthday" type="text">
+          <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+      </div> 
+      <div class="row-fluid">
+        <div class='span3'>
+          <label>Номер</label>
+          <input class="" type="text" placeholder="1234" name="searchIdentityNumber" id="searchIdentityNumber">
+       </div>  
+     </div>  
+      <div class="row-fluid">
+        <div class='span3'>
+          <label>Серия</label>
+          <input type="text" placeholder="123456" name="searchIdentitySeries" id="searchIdentitySeries">
+        </div>       
+      </div>     
+    </div>
+  }
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+  	$('#advancedSearchFields').hide();
+  	$('#searchBirthday').datepicker();
+    $('#advancedSearchButton').click(function() {
+      $('#advancedSearchFields').slideToggle('slow');
+      if($('#advancedSearchButton > i').hasClass('icon-arrow-down')) {
+        $('#advancedSearchButton > i').removeClass('icon-arrow-down').addClass('icon-arrow-up');
+      } else {
+        $('#advancedSearchButton > i').removeClass('icon-arrow-up').addClass('icon-arrow-down');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,40 @@
+@(event: Event)
+<div>
+	<div>
+		<p>
+			<strong>Начало: </strong> 
+			@event.start.format("dd MMM yyyy HH:mm")
+		</p>
+		<p>
+			<strong>Окончание: </strong> 
+			@event.end.format("dd MMM yyyy HH:mm")
+		</p>
+		<p>
+			<strong>Кабинет № @event.doctor.officeNumber</strong> 
+		</p>
+	</div>
+	<!-- <div>
+		<p>
+			<strong>Врач </strong> 
+			@event.doctor.getFullName()
+		</p>
+		<p>
+			<strong>Специальность:</strong> 
+			@event.doctor.getDoctorTypeName()
+		</p>  
+	</div>
+	<div>
+		<p>
+			<strong>Пациент </strong> 
+			@event.patient.getFullName()
+		</p>
+		<p>
+			<strong>Дата рождения: </strong> 
+			@event.patient.birthday.format("dd MMM yyyy")
+		</p>
+		<address>
+			<strong>Адрес:</strong> 
+			@event.patient.residenceAddress
+		</address>
+	</div> -->
+</div>

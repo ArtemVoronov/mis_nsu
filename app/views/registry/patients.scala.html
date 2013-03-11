@@ -1,0 +1,33 @@
+@(patients: List[Patient])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+<h1>Количество пациентов: @patients.size()</h1>
+
+<ul>
+  <table class="table table-striped">
+  	<thead>  
+      <tr>  
+        <th>№</th>  
+        <th>ФИО</th>
+        <th>Пол</th>
+        <th>Дата рождения</th>
+        <th>Прописка</th>
+        <th>Фактический адрес</th>
+      </tr>  
+    </thead>  
+    <tbody> 
+	  @for(p <- patients) {
+	  	<tr>  
+        <td>@p.id</td>   
+        <td>@p.getFullName()</td>  
+        <td>@p.gender</td> 
+        <td>@p.birthday</td> 
+        <td>@p.residenceAddress</td> 
+        <td>@p.currentAddress</td> 
+      </tr>  
+	  }
+	</tbody> 
+  </table>
+</ul>

@@ -1,0 +1,56 @@
+@(id: Long, eventForm: Form[Event], event: Event)
+
+@import helper._
+@import registry.patient._
+@import registry.doctor._
+
+@main("Запись на приём №"+event.id) {
+
+  <div class="container-fluid">
+    <div class="row-fluid" >
+      <!-- class="span5 offset2" -->
+
+      <div class="offset2">
+        <h2>Запись на приём №@event.id</h2>
+
+        <div class="">
+          @doctorinfo(event.doctor)    
+          @patientinfo(event.patient)
+        </div>
+        <form action="@routes.CalendarController.update(id)" method="POST" id="eventFormEdit">
+          <div class="input">
+            <label>Название</label><!-- value="@event.title" -->
+            <input type="text" id="title" name="title" value="@eventForm("title").value" size="18" placeholder="But not too long..." class="required" minlength="3">
+          </div>
+          <div class="input">
+            <label>Начало</label><!-- @event.start.format("dd MMM yyyy HH:mm") -->
+            <input type="text" id="start" name="start" value="@eventForm("start").value" size="18" placeholder="dd.mm.yyyy" class="required">
+          </div>
+          <div class="">
+            <label>Окончание</label>
+            <input type="text" id="end" name="end" value="@eventForm("end").value" size="18" placeholder="dd.mm.yyyy hh:mm">
+          </div>        
+          <div class="">
+            <a href="@routes.PatientManager.coupon(event.id)" class="btn btn-info">Талон</a>
+            
+            <!-- <input type="button" value="Талон" class="btn" onclick="printpage()"> -->
+            <input type="submit" value="Сохранить" class="btn primary">
+            <input type="button" value="Отменить" class="btn" onclick="window.close()">
+            
+            <a href="@routes.Application.todoPage()" class="btn btn-primary pull-right">Выслать SMS\E-mail сообщение</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>  
+}
+<!--<script type="text/javascript">
+  //link to the template
+    //$(document).ready(function() {
+        //var url = "/calendar?doctorId="+$("#doctorId").val()+"&amp;patientId="+$("#patientId").val();
+        ///calendar?doctorId=1&amp;patientId=1
+        //$('#topbaropt-calendar').children().attr("href", url);
+        
+    //});
+  </script>-->
+

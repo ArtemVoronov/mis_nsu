@@ -1,0 +1,70 @@
+@(eventForm: Form[Event])
+@import helper._
+@implicitField = @{ FieldConstructor(fields.twoColumns.f) }
+
+@mainLayout("Создать новое событие"){
+<div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span5 offset2">
+        <h3>Создать новое событие:</h3>
+    @helper.form(action = routes.CalendarController.add, 'id->"eventFormNew") {
+
+        @inputText(eventForm("title"), args =
+            '_label -> "Название",
+            'size ->18,
+            'placeholder -> "",
+            'class -> "required",
+            'minlength -> "3"
+        )
+
+        @checkbox(field = eventForm("allDay"), args =
+            '_label -> "Событие на весь день?",
+            'placeholder -> "dd.mm.yyyy hh:mm"
+        )
+
+
+        @inputText(eventForm("start"), args =
+            '_label -> "Начало",
+            '_help -> "",
+            'size ->18,
+            'placeholder -> "dd.mm.yyyy hh:mm",
+            'class -> "required"
+        )
+
+        @inputText(eventForm("end"), args =
+            '_label -> "Окончание",
+            '_help -> "",
+            'size ->18,
+            'placeholder -> "dd.mm.yyyy hh:mm"
+        )
+
+
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            $("#eventFormNew").validate();
+        });
+    </script>
+
+    <div class="row">
+        <div class="span8 offset2">
+        <input type="submit" value="Создать" class="btn primary">
+        <a href="@routes.CalendarController.list()" class="btn">Отмена</a>
+        </div>
+    </div>
+
+    }
+    </div>  
+      <div>
+        <!-- <div class="container"> -->
+            <div class="row">
+                <!-- <div class="span8 offset2"> -->
+                <a href="@routes.Application.todoPage()" class="btn btn-primary">Распечатать</a>
+                <a href="@routes.Application.todoPage()" class="btn btn-primary">Выслать SMS\E-mail сообщение</a>
+                <!-- </div> -->
+            </div>
+        <!-- </div> -->
+    </div>
+  </div>
+</div>
+}
+

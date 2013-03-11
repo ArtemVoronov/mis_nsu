@@ -1,0 +1,63 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /    						            controllers.Application.index()
+
+# Authentication
+GET     /login                      controllers.Application.login()
+POST    /login                      controllers.Application.authenticate()
+GET     /logout                     controllers.Application.logout()
+
+# Main pages        
+GET     /homepage                   controllers.Application.homepage()
+GET     /about                   		controllers.Application.about()
+GET     /contacts                   controllers.Application.contacts()
+GET     /registry                   controllers.Application.registry()
+#GET    /doctor                     controllers.Application.doctor()
+GET     /help                     	controllers.Application.help()
+
+# Temporary pages for debug
+GET     /todopage                   controllers.Application.todoPage()
+GET     /okpage                   	controllers.Application.okPage()
+GET 	  /temp 						          controllers.Application.temp()
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+# Patients 
+GET			/patients       						controllers.PatientManager.patients()
+GET			/newpatientpage       			controllers.PatientManager.newPatientPage()
+POST		/newpatient       			    controllers.PatientManager.newPatient()
+GET			/findpatientpage       			controllers.PatientManager.findPatientPage()
+GET			/findpatient       			    controllers.PatientManager.findPatient()
+GET			/patient:id       			    controllers.PatientManager.patient(id: Long)
+POST    /patient/:id/delete       	controllers.PatientManager.deletePatient(id: Long)
+GET     /choosedoctor:id       		  controllers.PatientManager.chooseDoctor(id:Long)
+POST    /choosedoctor       		    controllers.PatientManager.newAppointment(patientId: Long)
+GET     /doctortype:id       		  	controllers.PatientManager.doctorList(id:Long)
+GET     /document      		  				controllers.PatientManager.document()
+GET     /coupon      		  					controllers.PatientManager.coupon(id:Long)
+GET			/doctor:id       			    	controllers.PatientManager.doctor(id: Long)
+
+# Calendar
+GET     /calendar                   controllers.CalendarController.calendar(doctorId: Long ?= 0, patientId: Long ?= 0)
+GET     /events                     controllers.CalendarController.list()
+GET     /events.json/:doctor_id     controllers.CalendarController.json(start: Long ?= 0, end: Long ?= 0, doctor_id: Long )
+#GET     /events.json               controllers.CalendarController.json(start: Long ?= 0, end: Long ?= 0)
+
+GET     /event/:id/edit             controllers.CalendarController.edit(id:Long)
+POST    /event/:id/update           controllers.CalendarController.update(id:Long)
+POST    /event                      controllers.CalendarController.add()
+GET     /event/new                  controllers.CalendarController.blank()
+GET     /event/:id/delete           controllers.CalendarController.delete(id:Long)
+
+POST    /event-ajax                 controllers.CalendarController.addByAjax()
+POST    /event-move                 controllers.CalendarController.move()
+POST    /event-resize               controllers.CalendarController.resize()
+GET     /documentEvent      		  	controllers.CalendarController.document()
+
+# Actors
+GET     /actor/:msg                 controllers.ServerActorApp.process(msg: String)

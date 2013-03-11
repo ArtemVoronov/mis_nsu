@@ -1,0 +1,55 @@
+@(event: Event)
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> -->
+<!-- <html lang="ru"> -->
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta http-equiv="Content-Language" content="ru">
+		<style type="text/css">
+      body {
+          font-family: 'M+ 2c heavy', 'DejaVu Sans';
+          background: #ECECEC;
+      }
+    </style>
+		<title>Талон амбулаторного</title>
+	</head>
+	<body>
+		<div>
+
+			EVENT <br/>
+			@event.title<br/>
+			@event.start<br/>		
+			"фыв"<br/>	
+			@Html("кыр")<br/>	
+			@Html(Messages("asd"))<br/>	
+			@Messages("asd")<br/>	
+			@Html(Messages("qwe"))<br/>	
+			@Messages("qwe")<br/>	
+			@session.get("username")<br/>
+			<p charset="UTF-8">Событие</p><br/>	
+			<p charset="CP1251">Событие</p><br/>	
+			@java.net.URLEncoder.encode("Событие","utf-8")<br/>	
+			@java.net.URLEncoder.encode("Событие","CP1251")<br/>	
+			@java.net.URLEncoder.encode("Событие","Windows-1251")<br/>
+			@java.net.URLEncoder.encode("Событие","ISO-8859-1")<br/>
+			@java.net.URLEncoder.encode("Событие","ISO-8859-5")<br/>
+			@java.net.URLDecoder.decode("Событие","utf-8")<br/>	
+			@java.net.URLDecoder.decode("Событие","CP1251")<br/>	
+			@java.net.URLDecoder.decode("Событие","Windows-1251")<br/>
+			@java.net.URLDecoder.decode("Событие","ISO-8859-1")<br/>
+			@java.net.URLDecoder.decode("Событие","ISO-8859-5")<br/>
+		</div>
+		<div>
+			Пациент<br/>
+			@event.patient.getFullName()<br/>
+		</div>
+		<div>
+			Врач<br/>
+			@event.doctor.getFullName()<br/>
+			Специальность: @event.doctor.getDoctorTypeName()<br/>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+@(username: String)
+<div class="navbar navbar-fixed-top"> <!-- navbar-fixed-top -->
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <ul class="nav">
+        <li><a href="#homepage"><i class="icon-home"></i>Главная страница</a></li>
+        <!-- <li><a href="#about">О проекте</a></li> -->
+        <!-- <li><a href="#contact">Контакты</a></li> -->
+        <li class="active"><a href="#registry">Регистратура</a></li>
+      </ul>
+      <ul class="nav pull-right">
+        <li class="dropdown">
+          <a href="#username" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-user"></i>
+            @username
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="@routes.Application.todoPage">Настройки</a></li>
+            <li><a href="@routes.Application.help">Помощь</a></li>
+            <li class="divider"></li>
+            @*<li><a href="@routes.Application.homepage">Выйти</a></li>*@
+            @*TODO: uncomemnt*@
+             <li><a href="@routes.Application.logout">Выйти</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

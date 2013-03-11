@@ -1,0 +1,19 @@
+<div class="well sidebar-nav"> 
+  <ul class="nav nav-list">
+    <li class="nav-header"><i class="icon-th"></i> Инструменты</li>
+    <li id="baropt-findpatient"><a href="#">Запись на приём</a></li>   
+    <li id="baropt-addpatient"><a href="#">Создание нового пациента</a></li>
+
+    <li class="nav-header">В разработке</li><!-- временная штуковина, нужна только для отладки -->
+    <li class="disabled"><a href="#">Записанные пациенты</a></li>
+    <li class="disabled"><a href="#">Все пациенты</a></li>
+    <li class="disabled"><a href="#">Амбулаторная карта</a></li>
+    <li class="disabled"><a href="#">Распиание врача</a></li>
+    <li class="disabled"><a href="#">Создать шаблон</a></li>
+    <li class="disabled"><a href="#">Статистика</a></li>
+    <!-- TODO: delete this field or make dynamic parameter -->
+    <!-- <li class="disabled"><a href="@routes.CalendarController.calendar(0)">Календарь</a></li> -->  
+  </ul>
+</div>
+<!-- не хватает функции: выдать амбулаторный талон: список врачей, по специальности врача и занятости -->
+<!-- выбираем специальность, вываливается календарь на СЕГОДНЯ, в нём отображена информация необходимая для записи, кнопочка печати талона (заглушка: время, врач, место), выслать письо на e-mail \ SMS на телефон-->

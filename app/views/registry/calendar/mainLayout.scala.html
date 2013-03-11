@@ -1,0 +1,44 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@title</title>
+    <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.png")'>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.css")">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+    <!--<script src='@routes.Assets.at("bootstrap/js/bootstrap.min.js")' type="text/javascript"></script>-->
+    <script src="@routes.Assets.at("javascripts/bootstrap.js")" type="text/javascript"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
+
+
+</head>
+<body>
+<!-- <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid"> -->
+            <!-- <a class="brand" href="@routes.CalendarController.calendar()">FullCalendar</a> -->
+
+            <!-- <ul class="nav">
+                <li><a href="#homepage">Главная страница</a></li>
+                <li><a href="@routes.Application.registry()">Регистратура</a></li>
+                <li id="topbaropt-calendar">
+                    <a href="@routes.CalendarController.calendar()">Календарь</a>
+                </li>
+                <li class="active">
+                    <a href="@routes.CalendarController.list()">
+                        <i class="icon-list icon-white"></i> Записаные пациенты</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div> -->
+
+
+@content
+</body>
+
+</html>

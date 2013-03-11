@@ -1,0 +1,277 @@
+@(username: String)
+
+@import patient._
+
+@main("Регистратура") {
+  @registrytopbar(username)
+  
+  <div class="container-fluid">
+    <div class="row-fluid">
+
+      <div class="span3">
+        @registrysidebar() 
+        <div class="well" id="patientInfo"></div>  
+        <div class="well" id="doctorInfo"></div> 
+      </div>
+
+      <div class="span9" id="work_page">
+        <div id="newAppointment">
+          <div id="findPatient"></div>  
+          <!-- <div id="patientInfo"></div>  -->
+          <div id="chooseDoctor"></div>
+        </div>
+           
+        <div id="newPatient"></div> 
+        <div id="calendarBlock"></div> 
+
+        <div id="eventInfo"></div>   
+
+      </div>
+    </div>
+  </div>
+}
+
+<script type="text/javascript">
+  var commonSpeed = 800;
+  var slideUpSpeed = 1600;
+  var slideDownSpeed = 800;
+  var slideDownSpeedAddPatient = 1400;
+  var slideDownSpeedFindPatient = 800;
+  $(document).ready(function(){
+      $( "#patientInfo" ).hide();
+      $( "#doctorInfo" ).hide();
+      // $( "#eventInfo" ).hide();
+      $( "#chooseDoctor" ).hide();
+      $( "#newPatient" ).hide();
+      $( "#newAppointment" ).hide();
+      $( "#findPatient" ).hide();
+      // $( "#calendarBlock" ).hide();
+      showNewAppointmentBlock();
+      //click to find patient option
+      $('#baropt-findpatient').bind('click', function() {
+        if($( "#newAppointment" ).is(':hidden')) {
+          showNewAppointmentBlock();
+        }        
+      });
+
+      //click to new patient option
+      $('#baropt-addpatient').bind('click', function() {  
+      if($( "#newPatient" ).is(':hidden')) {
+          showAddPatientBlock();
+        }   
+      });
+  });
+
+  function loadFindPatientContent() {
+    var array_fio = new Array();
+
+    @for(p <- Patient.all()) {
+      array_fio.push('@p.getFullName()')
+    }
+    $( "#findPatient" ).slideUp().empty();
+    $( "#findPatient" ).load('/findpatientpage', function() {
+      //set qtip data for patient's fio input
+      $( '#searchInput' ).typeahead({source: array_fio});
+      /* attach a submit handler to the form: show patient info */
+      $( "#searchForm" ).submit(function(event) { 
+        /* stop form from submitting normally */
+        event.preventDefault();
+        /* get some values from elements of searchForm */
+        var $form = $( this ),    
+          term = $form.find( '#searchInput' ).val(), 
+          term2 = $form.find( '#searchBirthday' ).val(),
+          term3 = $form.find( '#searchIdentityNumber' ).val(),
+          term4 = $form.find( '#searchIdentitySeries' ).val(),
+          url = $form.attr( 'action' );
+        /* Send the data using get */
+        var getResultPatient = $.get( url, { fullName: term, searchBirthday: term2, searchIdentityNumber: term3, searchIdentitySeries: term4 } );
+        /* Put the results in a div */
+        getResultPatient.done(function( data ) {  
+          //console.log('patient_data: ' + data);        
+          $( "#patientInfo" ).empty().append( data ).slideDown(commonSpeed);    
+
+          var getResultDoctor = $.get( '/choosedoctor'+$( "#patientId" ).val());
+
+          getResultDoctor.done(function( data ) {  
+            //console.log('doctor_data: ' + data);        
+            $( "#chooseDoctor" ).empty().append( data ).slideDown(commonSpeed);   
+            $('#doctorType_doctorTypeName').unbind('change',showAppointmentDate).bind('change',showAppointmentDate); 
+            $( "#cancelNewAppointment_button" ).click(function(event) { 
+              event.preventDefault();
+              cancelNewAppointment();
+            });  
+            $( "#NewAppointment_submit" ).click(function(event) { 
+              event.preventDefault();
+              showCalendarBlock();
+            });     
+          });      
+        });
+        
+      });
+      $(this).slideDown(slideDownSpeedFindPatient);
+    });
+  }
+
+  function showAppointmentDate() {
+    if($( ".appointmentDate" ).is(':hidden')) {
+      $( ".appointmentDate" ).slideDown('slow'); 
+      $('.appointmentDate').unbind('change',setDoctorsFioByType).bind('change',setDoctorsFioByType); 
+    }
+  }
+
+  function setDoctorsFioByType() {
+    var getResultDoctorTypes= $.get( '/doctortype'+$('#doctorType_doctorTypeName').val() );
+    getResultDoctorTypes.done(function( data ) {       
+      $( "#doctorFullName" ).empty().append( data );  
+      $('#doctorFullName').prop('selectedIndex', -1)   
+      /*if($( "#doctorFullName_field" ).is(':hidden')) {
+        $( "#doctorFullName_field" ).slideDown('slow'); 
+      } */ 
+      if($( "#doctorFullName_fieldrow" ).is(':hidden')) {
+        $( "#doctorFullName_fieldrow" ).slideDown('slow'); 
+      }    
+    });  
+  }
+  //TODO: implement SQL-request
+  function setDoctorsFioByDateandType() {
+     
+  }
+
+  function loadAddPatientContent() {
+    $( "#newPatient" ).load('/newpatientpage', function() {
+      $(this).slideDown(slideDownSpeedAddPatient);
+      // $( "#cancelAddPatient_button" )
+      $( '[id="cancelAddPatient_button"]' ).click(function(event) { 
+        event.preventDefault();
+        cancelAddPatient();
+      }); 
+    });
+  }
+
+  function showNewAppointmentBlock() {
+    if($( "#calendar" ).val() != null && !$('#calendar').is(':empty')) {
+      $( "#patientInfo" ).slideUp("slow" , function() {
+        $(this).empty();
+      });
+      $( "#doctorInfo" ).slideUp("slow", function() {
+        $(this).empty();
+      });
+      $( "#chooseDoctor" ).hide();
+      $( "#calendar_footer" ).slideUp("slow" , function() {
+        $(this).empty();
+      });
+      $( "#calendar" ).slideUp("slow", function() {        
+        $(this).empty();
+        $('#work_page').prepend($("#newAppointment"));
+        $( "#newAppointment" ).slideDown(function() {
+          loadFindPatientContent();
+        });
+    });
+    } else {
+      $( "#newPatient" ).slideUp("slow", function() {
+        $('#work_page').prepend($("#newAppointment"));
+        $( "#newAppointment" ).slideDown(function() {
+          loadFindPatientContent();
+        });
+      });
+    }
+  }
+
+  function showAddPatientBlock() {
+    $( "#newAppointment" ).slideUp("slow", function() {
+      $( "#findPatient" ).slideUp().empty();
+      $( "#chooseDoctor" ).slideUp().empty();
+      $( "#patientInfo" ).slideUp("slow" , function() {
+        $(this).empty();
+      });
+      $( "#doctorInfo" ).slideUp("slow", function() {
+        $(this).empty();        
+      });
+      $( "#chooseDoctor" ).hide();
+      if($( "#calendar" ).val() == null) {
+        $('#work_page').prepend($("#newPatient"));
+        loadAddPatientContent(); 
+      } else {
+        $( "#calendar" ).slideUp("slow", function() {
+          $(this).empty();
+          $( "#calendar_footer" ).slideUp("slow" , function() {
+            $(this).empty();          
+          }); 
+          $('#work_page').prepend($("#newPatient"));
+          loadAddPatientContent();       
+        });   
+      }             
+    });
+
+  }
+
+  function cancelNewAppointment() {
+    $( "#patientInfo" ).slideUp("slow" , function() {
+      $(this).empty();
+    });
+    $( "#chooseDoctor" ).slideUp("slow", function() {
+      $(this).empty();
+    });
+  }
+
+  function cancelAddPatient() {
+    showNewAppointmentBlock();
+  }
+
+  function loadCalendarContent(doctorId, patientId) {
+    $( "#calendarBlock" ).load("/calendar?doctorId="+doctorId+"&patientId="+patientId, function() {
+      $('#calendar').trigger('resize').slideDown(1000);
+      $('#calendar_footer').slideDown(1000);
+      
+      $( '#canceCalendar_button' ).click(function(event) { 
+        event.preventDefault();
+        cancelCalendar();
+      }); 
+      
+    });
+  }
+
+  function showCalendarBlock() {
+    var doctorId = $('#doctorFullName').val();
+    var patientId = $('#patientId').val();
+    $( "#newAppointment" ).slideUp("slow", function() {
+      $( "#findPatient" ).slideUp().empty();
+      $( "#chooseDoctor" ).slideUp().empty();
+      $('#work_page').prepend($("#calendarBlock"));
+      loadCalendarContent(doctorId, patientId);  
+      loadDoctorInfoContent(doctorId);        
+    }); 
+  }
+
+  function loadDoctorInfoContent(doctorId) {
+    $( "#doctorInfo" ).load('/doctor'+doctorId, function() {
+      $(this).slideDown(1200);
+    });
+  }
+
+  function cancelCalendar() {
+    $( "#patientInfo" ).slideUp("slow" , function() {
+      $(this).empty();
+    });
+    $( "#doctorInfo" ).slideUp("slow", function() {
+      $(this).empty();
+    });
+    $( "#chooseDoctor" ).hide();
+    $( "#calendar_footer" ).slideUp("slow" , function() {
+      $(this).empty();
+    });
+    $( "#calendar" ).slideUp("slow", function() {
+      
+      $(this).empty();
+      showNewAppointmentBlock();
+    });
+  }
+  function loadEventInfoContent() {
+    /*$( "#eventInfo" ).load('/event/33/edit', function() {
+      $(this).slideDown(800);
+      
+    });*/
+    $( "#eventModalBody" ).load('/event/1/edit');
+    
+  }
+</script>

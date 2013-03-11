@@ -1,0 +1,58 @@
+@(username: String)
+
+@main("Контакты") {
+  <div class="navbar navbar-fixed-top"> <!--  navbar-fixed-top -->
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li><a href="@routes.Application.homepage">Главная страница</a></li>
+            <li><a href="@routes.Application.about">О проекте</a></li>
+            <li class="active"><a href="@routes.Application.contacts">Контакты</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="hero-unit clearfix container-fluid">
+      <div class="pull-left">        
+           
+        
+        <h2>Контакты</h2>    
+        <!-- <div class="pull-left">   -->
+          <p class="lead">Сайт сообщества: <a href="#the-comunity.org">the-comunity.org</a> </p>
+        <!-- </div> -->
+        <!-- <div class="pull-left"> -->
+          <p class="lead">Участники проекта:</p>
+        <!-- </div> -->
+
+        <div class="row">
+          <!-- <p class="span3">
+              <img alt="pict" src="@routes.Assets.at("images/foto.png")" width="72" height="72">
+              <i class="icon-user"></i>
+              <strong>Full name</strong> <br/>Role<br> <a href="#" class="light" target="_blank">@@twitter some@@email.com </a>
+          </p> -->
+          <p class="span3">
+              <i class="icon-user"></i>
+              <strong>Full name</strong> <br/>Role<br> <a href="#" class="light" target="_blank">@@twitter</a> or <a href="#" class="light" target="_blank">some@@email.com </a>
+          </p>
+
+          <p class="span3">
+              <!-- <img alt="pict" src="@routes.Assets.at("images/foto.png")" width="72" height="72"> -->
+              <i class="icon-user"></i>
+              <strong>Артём Воронов</strong> <br>Разработчик<br> <a href="#" class="light" target="_blank">voronov54@@gmail.com</a>
+          </p>
+          <p class="span3">
+              <!-- <img src="@routes.Assets.at("images/foto.png")" width="72" height="72"> -->
+              <i class="icon-user"></i>
+              <strong>Денис Шумков</strong> <br>Разработчик<br> <a href="#" class="light" target="_blank">dnsshum@@gmail.com</a>
+          </p>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+  @footer()
+}
