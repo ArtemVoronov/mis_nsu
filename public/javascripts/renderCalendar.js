@@ -124,6 +124,7 @@ $(document).ready(function () {
     editable:true,
 
     events: {
+      
       // modificated by Artem Voronov: added binding of doctor_id for event
       // now render all events that has only doctor_id
       url:"/events.json/"+jQuery("#doctorId").val(),
