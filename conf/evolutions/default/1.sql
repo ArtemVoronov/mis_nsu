@@ -99,7 +99,7 @@ create table account (
   id                        bigint not null,
   email                     varchar(255),
   name                      varchar(255),
-  password                  varchar(255),
+  password_md5              varchar(255),
   constraint pk_account primary key (id))
 ;
 

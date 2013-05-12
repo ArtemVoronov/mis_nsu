@@ -64,12 +64,13 @@ public class Application extends Controller {
     public String email;
     public String password;
 
-    public String validate() {
-      if(User.authenticate(email, password) == null) {
-        return "Указано неверное имя пользователя или пароль";
-      }
-      return null;
-    }
+    // public String validate() {
+    //   // if(User.authenticate(email, password) == null) {
+    //   //   return "Указано неверное имя пользователя или пароль";
+    //   // }
+    //   if(!User.isValidLogin(email,password)) 
+    //     return null;
+    // }
 
   }
 
@@ -93,10 +94,19 @@ public class Application extends Controller {
       return redirect(routes.Application.homepage());
     } else {
       Login login = loginForm.get();
-      User user = User.findByEmail(login.email);
-      session("email", user.email);
-      session("username", user.name);
-      return redirect(routes.Application.registry());
+      //if user all right
+      if (User.isValidLogin(login.email, login.password)) {
+        User user = User.findByEmail(login.email);
+        session("email", user.email);
+        session("username", user.name);
+        return redirect(routes.Application.registry());
+      } else {
+        // loginForm.field("password").errors.put("Username/Password combination was incorrect");
+        // loginForm.fill().add("Username/Password combination was incorrect");
+        loginForm.reject("Username/Password combination was incorrect");
+        // return badRequest(views.html.homepage.login.render(loginForm));
+        return redirect(routes.Application.homepage());
+      }      
     }
   }
 

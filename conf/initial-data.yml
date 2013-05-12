@@ -6,7 +6,7 @@ users:
     - !!models.User
         email:      registry@nsu.ru
         name:       Артём Воронов
-        password:   123
+        password:   secret
     
     - !!models.User
         email:      doctor@nsu.ru
