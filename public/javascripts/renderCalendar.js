@@ -34,7 +34,9 @@ $(document).ready(function () {
     select:function (start, end, allDay) {
       // var title = prompt('Название события:');
       // var title = "Quick test title...";
-      var title = jQuery("#patientId").val();
+      // var title = jQuery("#patientId").val();
+      var title = jQuery("#patient_full_name").val();
+      console.log(title);
       if (title) {
         jQuery("#newTitle").val(title);
         jQuery("#newStart").val(convertDate(start));
